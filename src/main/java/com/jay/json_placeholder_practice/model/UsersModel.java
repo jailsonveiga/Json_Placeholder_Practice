@@ -76,7 +76,7 @@ public class UsersModel {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String usernames) {
         this.username = username;
     }
 
