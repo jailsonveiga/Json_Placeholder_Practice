@@ -85,7 +85,7 @@ public class UsersController {
         //return is a keyword which is used to return a value from a method.
         //new is a keyword which is used to create a new object.
         //ResponseEntity is a class which is used to send a response to the client with a status code.
-        //usersRepo is the name of the field.
+        //usersRepo is the name of the field. It is used to perform CRUD operations on a database.
         //save is a method which is used to save a record in a database.
         //newUsersModel is the name of the parameter.
         //HttpStatus is an enum which is used to define the status code of the response.
@@ -93,5 +93,22 @@ public class UsersController {
         return new ResponseEntity<>(usersRepo.save(newUsersModel), HttpStatus.CREATED);
     }
 
-
+    @GetMapping("/allusers")
+        public ResponseEntity<Iterable<UsersModel>> getAllAccounts() {
+        //Iterable is an interface which is used to define a collection of objects. It is used to define a collection of UsersModel.
+        //<UsersModel> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+        //accountAppModels is the name of the field. It is used to store the collection of UsersModel.
+        //= is an assignment operator which is used to assign a value to a field.
+        //usersRepo is the name of the field. It is used to get all the records from a database.
+        //findAll is a method which is used to get all the records from a database.
+        Iterable<UsersModel> accountAppModels = usersRepo.findAll();
+        //return is a keyword which is used to return a value from a method.
+        //new is a keyword which is used to create a new object.
+        //ResponseEntity is a class which is used to send a response to the client with a status code.
+        //<> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+        //accountAppModels is the name of the field. It is used to store the collection of UsersModel.
+        //HttpStatus is an enum which is used to define the status code of the response.
+        //ok is a method which is used to send a response to the client with a status code of 200.
+        return new ResponseEntity<>(accountAppModels, HttpStatus.OK);
+    }
 }
