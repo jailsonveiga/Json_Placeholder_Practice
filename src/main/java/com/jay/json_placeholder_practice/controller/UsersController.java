@@ -37,7 +37,7 @@ public class UsersController {
     //getUsers is the name of the method.
     //RestTemplate is a class which is used to send a request to an url.
     //restTemplate is the name of the field.
-    public ResponseEntity<?> getUsers(RestTemplate restTemplate){
+    public ResponseEntity<?> getUsers(RestTemplate restTemplate) {
 
         //UsersModel[] is a data type which defines that this field can only store an array of UsersModel.
         //users is the name of the field.
@@ -56,7 +56,7 @@ public class UsersController {
         //UsersModel is a class which is used to define the structure of the table.
         //user is the name of the field.
         //users is the name of the field.
-        for(UsersModel user : users) {
+        for (UsersModel user : users) {
             //usersRepo is the name of the field.
             //save is a method which is used to save a record in a database.
             //user is the name of the field.
@@ -81,7 +81,7 @@ public class UsersController {
     //@RequestBody is an annotation which is used to tell spring that this parameter is a request body. It is used to get the data from the request body.
     //UsersModel is a class which is used to define the structure of the table.
     //newUsersModel is the name of the parameter.
-    public ResponseEntity<UsersModel> createUsers (@RequestBody UsersModel newUsersModel) {
+    public ResponseEntity<UsersModel> createUsers(@RequestBody UsersModel newUsersModel) {
         //return is a keyword which is used to return a value from a method.
         //new is a keyword which is used to create a new object.
         //ResponseEntity is a class which is used to send a response to the client with a status code.
@@ -94,7 +94,7 @@ public class UsersController {
     }
 
     @GetMapping("/allusers")
-        public ResponseEntity<Iterable<UsersModel>> getAllAccounts() {
+    public ResponseEntity<Iterable<UsersModel>> getAllAccounts() {
         //Iterable is an interface which is used to define a collection of objects. It is used to define a collection of UsersModel.
         //<UsersModel> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
         //accountAppModels is the name of the field. It is used to store the collection of UsersModel.
@@ -111,4 +111,32 @@ public class UsersController {
         //ok is a method which is used to send a response to the client with a status code of 200.
         return new ResponseEntity<>(accountAppModels, HttpStatus.OK);
     }
+
+    // delete a user by id and then return the response body with the record that was deleted
+    // @DeleteMapping is an annotation which is used to tell spring that this method is a deleted mapping. It is used to delete a record from a database table.
+    // ("/delete/{id}") is a request mapping which is used to map the url to the controller class. It is used to map the id to the controller class.
+    @DeleteMapping("/deleteuser/{id}")
+    //public is an access modifier which defines who can access this method.
+    //ResponseEntity is a class which is used to send a response to the client with a status code.
+    //<UsersModel> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+    //deleteUser is the name of the method.
+    //@PathVariable is an annotation which is used to tell spring that this parameter is a path variable. It is used to get the data from the url.
+    //(value = "id") is a request parameter which is used to get the data from the url.
+    //UsersModel is a class which is used to define the structure of the table.
+    //usersModel is the name of the parameter.
+    public ResponseEntity<UsersModel> deleteUser(@PathVariable(value = "id") UsersModel usersModel) {
+        //usersRepo is tne name of the field. It is used to perform CRUD operations on a database.
+        //delete is a method which is used to delete a record from a database.
+        //usersModel is the name of the parameter.
+        usersRepo.delete(usersModel);
+        //return is a keyword which is used to return a value from a method.
+        //new is a keyword which is used to create a new object.
+        //ResponseEntity is a class which is used to send a response to the client with a status code.
+        //<> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+        //usersModel is the name of the parameter.
+        //HttpStatus is an enum which is used to define the status code of the response.
+        //ok is a method which is used to send a response to the client with a status code of 200.
+        return new ResponseEntity<>(usersModel, HttpStatus.OK);
+    }
+
 }
