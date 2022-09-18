@@ -140,18 +140,67 @@ public class UsersController {
     }
 
 
+    //@PutMapping is an annotation which is used to tell spring that this method is a put mapping. It is used to update a record in a database table.
+    //("/update/{id}") is a request mapping which is used to map the url to the controller class. It is used to map the id to the controller class.
     @PutMapping("/updateuser/{id}")
+    //public is an access modifier which defines who can access this method.
+    //ResponseEntity is a class which is used to send a response to the client with a status code.
+    //<UsersModel> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+    //updateUser is the name of the method.
+    //@PathVariable is an annotation which is used to tell spring that this parameter is a path variable. It is used to get the data from the url.
+    //(value = "id") is a request parameter which is used to get the data from the url.
+    //UsersModel is a class which is used to define the structure of the table.
+    //usersModel is the name of the parameter.
+    //@RequestBody is an annotation which is used to tell spring that this parameter is a request body. It is used to get the data from the request body.
+    //UsersModel is a class which is used to define the structure of the table.
     public ResponseEntity<UsersModel> updateUser(@PathVariable(value = "id") UsersModel usersModel, @RequestBody UsersModel newUsersModel) {
 
+        //UsersModel is a class which is used to define the structure of the table.
+        //updatedUsersModel is the name of the field. It is used to store the updated record.
+        //= is an assignment operator which is used to assign a value to a field.
+        //usersRepo is the name of the field. It is used to perform CRUD operations on a database.
+        //findById is a method which is used to get a record from a database.
+        //usersModel is the name of the parameter. It is used to get the id of the record.
+        //getId is a method which is used to get the id of the record.
+        //get is a method which is used to get the value of the field.
         UsersModel updatedUsersModel = usersRepo.findById(usersModel.getId()).get();
 
+        //usersModel is the name of the parameter.
+        //setName is a method which is used to set the name of the record.
+        //newUsersModel is the name of the parameter.
+        //getName is a method which is used to get the name of the record.
         usersModel.setName(newUsersModel.getName());
+        //usersModel is the name of the parameter.
+        //setEmail is a method which is used to set the email of the record.
+        //newUsersModel is the name of the parameter.
+        //getEmail is a method which is used to get the email of the record.
         usersModel.setUsername(newUsersModel.getUsername());
+        //usersModel is the name of the parameter.
+        //setEmail is a method which is used to set the email of the record.
+        //newUsersModel is the name of the parameter.
+        //getEmail is a method which is used to get the email of the record.
         usersModel.setEmail(newUsersModel.getEmail());
+        //usersModel is the name of the parameter.
+        //setWebsite is a method which is used to set the website of the record.
+        //newUsersModel is the name of the parameter.
+        //getWebsite is a method which is used to get the website of the record.
         usersModel.setWebsite(newUsersModel.getWebsite());
 
+        //UsersModel is a class which is used to define the structure of the table.
+        //updateUser is the name of the field. It is used to store the updated record.
+        //= is an assignment operator which is used to assign a value to a field.
+        //usersRepo is the name of the field. It is used to perform CRUD operations on a database.
+        //save is a method which is used to save a record in a database.
+        //updateUsersModel is the name of the parameter.
         UsersModel updatedUser = usersRepo.save(updatedUsersModel);
 
+        //return is a keyword which is used to return a value from a method.
+        //new is a keyword which is used to create a new object.
+        //ResponseEntity is a class which is used to send a response to the client with a status code.
+        //<> is a wildcard which defines that this method can return any type of data. It is used to define a collection of UsersModel.
+        //updatedUser is the name of the parameter.
+        //HttpStatus is an enum which is used to define the status code of the response.
+        //ok is a method which is used to send a response to the client with a status code of 200.
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 }
