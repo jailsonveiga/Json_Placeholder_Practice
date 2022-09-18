@@ -139,4 +139,19 @@ public class UsersController {
         return new ResponseEntity<>(usersModel, HttpStatus.OK);
     }
 
+
+    @PutMapping("/updateuser/{id}")
+    public ResponseEntity<UsersModel> updateUser(@PathVariable(value = "id") UsersModel usersModel, @RequestBody UsersModel newUsersModel) {
+
+        UsersModel updatedUsersModel = usersRepo.findById(usersModel.getId()).get();
+
+        usersModel.setName(newUsersModel.getName());
+        usersModel.setUsername(newUsersModel.getUsername());
+        usersModel.setEmail(newUsersModel.getEmail());
+        usersModel.setWebsite(newUsersModel.getWebsite());
+
+        UsersModel updatedUser = usersRepo.save(updatedUsersModel);
+
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
 }
